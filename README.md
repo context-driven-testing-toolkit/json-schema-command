@@ -7,9 +7,7 @@ _A wrapper for [jq](https://stedolan.github.io/jq/). Dumps the schemas
 ### List the unique paths in a JSON document
 
 Each unique path in the JSON document is printed alongside a count of 
-how many times that unique path occurs in the document. Arrays of any 
-length are represented with the `[]` token and array lenght is never 
-considered.
+how many times that unique path occurs in the document.
 
 ### Count how many times each unique path occurs
 
@@ -18,10 +16,11 @@ of the path.
 
 ## Synopsis
 
-I have formatted the paths as valid `jq` queries, so you can feed
-them back into `jq` easily.
+Use it like this:
 
-If the input were the following JSON document:
+    json_schema foo.json
+    
+If the contents of `foo.json` were the following:
 
     {
       "a": "foo",
