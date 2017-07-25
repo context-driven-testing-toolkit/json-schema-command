@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]
+then
+    echo "Usage: `basename $0` <path to JSON file>"
+  exit 1
+fi
+
+is_required () {
+    command_name="$1"
+    help_text="Install it via your package manager (eg: brew, yum, apt-get)."
+
+    command -v ${command_name} >/dev/null 2>&1 \
+        || (echo >&2 "ERROR: ${command_name} is required!"
+            echo >&2 "    ${help_text}"
+            echo >&2 "ERROR: Please install ${command_name} and try again!"
+            exit 1)
+}
+
+is_required "jq"
+is_required "sort"
+is_required "uniq"
+
+jq --raw-output '
+paths
+| map(. as $item
+| type
+| if  . == "number" then "[]" else "[\"" + $item + "\"]" end)
+| join("")
+| "." + .' \
+   $1 \
+    | sort \
+    | uniq -c
