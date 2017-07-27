@@ -21,13 +21,17 @@ is_required "jq"
 is_required "sort"
 is_required "uniq"
 
-jq --raw-output '
-paths
-| map(. as $item
-| type
-| if  . == "number" then "[n]" else $item end)
-| join(".")
-| .' \
+jq --raw-output \
+   'paths
+    | map(
+        . as $item
+        | type
+        | if  . == "number" then
+          "[n]"
+          else $item
+          end)
+    | join(".")
+    | .' \
    $1 \
     | sort \
     | uniq -c
