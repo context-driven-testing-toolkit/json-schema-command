@@ -7,10 +7,10 @@ _A wrapper for [jq](https://stedolan.github.io/jq/). Dumps the schemas
 A `jq` wrapper that prints back a high-level view of the schema of a 
 JSON document.
 
-This script primarily does two things:
+`json_schema` is a bash script that does two things:
 
-0. List unique paths (using pseudocode).
-0. Count how many times each unique path occurs.
+1. List unique paths (using pseudocode).
+1. Count how many times each unique path occurs.
 
 ### List the unique paths in a JSON document
 
