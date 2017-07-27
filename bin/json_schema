@@ -24,10 +24,10 @@ is_required "uniq"
 jq --raw-output '
 paths
 | map(. as $item
-| ($item | type) as $kind
-| if  $kind == "number" then "[] | ." else "[\"" + $item + "\"]" end)
-| join("")
-| "." + . + "?"' \
+| type
+| if  . == "number" then "[n]" else $item end)
+| join(".")
+| .' \
    $1 \
     | sort \
     | uniq -c
