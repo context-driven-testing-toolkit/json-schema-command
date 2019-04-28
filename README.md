@@ -9,8 +9,9 @@ JSON document.
 
 `json_schema` is a bash script that does two things:
 
-1. List unique paths (using pseudocode).
-1. Count how many times each unique path occurs.
+1. List unique paths using valid `jq` queries that you can then use 
+   to retrieve those paths if you wish.
+2. Count how many times each _unique_ path occurs in the document.
 
 ### List the unique paths in a JSON document
 
@@ -21,6 +22,9 @@ how many times that unique path occurs in the document.
 
 For each unique path, a count of occurrences is printed to the left
 of the path.
+
+The path itself is shown as a valid `jq` expression that you can then
+use to access resources at paths you have identified.
 
 ## Synopsis
 
@@ -39,12 +43,13 @@ If the contents of `foo.json` were the following:
 
 Then that should produce output like this:
 
-      1 a
-      1 b
-      1 c
-      6 c.[n]
-      1 c.[n].hello
-      1 d
+      1 .["a"]
+      1 .["b"]
+      1 .["c"]
+      6 .["c"][]
+      1 .["c"][]["hello"]
+      1 .["d"]
+      
 
 ### Sample output from NASA near-Earth objects report
 
@@ -57,17 +62,19 @@ This is what `json_schema` looks like when applied to a larger JSON document.
 
 Then the output should look like:
 
-    202 [n]
-    202 [n].designation
-    202 [n].discovery_date
-    181 [n].h_mag
-    202 [n].i_deg
-    202 [n].moid_au
-    202 [n].orbit_class
-    200 [n].period_yr
-    202 [n].pha
-    202 [n].q_au_1
-    200 [n].q_au_2
+    202 .[]
+    202 .[]["designation"]
+    202 .[]["discovery_date"]
+    181 .[]["h_mag"]
+    202 .[]["i_deg"]
+    202 .[]["moid_au"]
+    202 .[]["orbit_class"]
+    200 .[]["period_yr"]
+    202 .[]["pha"]
+    202 .[]["q_au_1"]
+    200 .[]["q_au_2"]
 
 As you can see, `json_schema` presents a compact, high-level view of a
-document that is composed of over 200 records.
+document that is composed of over 200 records. For instance, it is now
+possible to see that the field `h_mag` is used much less than the other 
+fields in the `near_earth_asteroids.json` document.
