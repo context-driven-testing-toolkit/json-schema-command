@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Copyright 2014-2019 Noah Sussman New Media, LLC
 
@@ -14,8 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ ! -x "$(which jq)" ]
-then
+if test ! "$(command -v jq)"; then
     echo "ERROR: jq is not in your path!"
     exit 1
 fi
