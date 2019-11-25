@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+
 # Copyright 2014-2019 Noah Sussman New Media, LLC
 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +14,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+
+# Set 'strict mode'; 'set -e' will make the whole script exit if a
+# command fails instead of continuing on the next line, 'set -u'
+# will treat references to unset variables as an error and exit
+# immediately.
+set -eu
+
 
 if test ! "$(command -v jq)"; then
     echo "ERROR: jq is not in your path!"
