@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+
 
 # Copyright 2014-2019 Noah Sussman New Media, LLC
 
@@ -14,17 +15,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ -z "$1" ]
-then
-    echo "Usage: `basename $0` <path to JSON file>"
-    exit 1
-elif [ ! -f "$1" ]
-then
-    echo "Usage: $(basename $0) <JSON file>"
-    echo "ERROR: Not a file: $1"
-    exit 1
-elif [ ! -x "$(which jq)" ]
-then
+
+# Set 'strict mode'; 'set -e' will make the whole script exit if a
+# command fails instead of continuing on the next line, 'set -u'
+# will treat references to unset variables as an error and exit
+# immediately.
+set -eu
+
+
+if test ! "$(command -v jq)"; then
     echo "ERROR: jq is not in your path!"
     exit 1
 fi
@@ -40,6 +39,6 @@ jq --raw-output \
               end)
         | join("")
         | "." + .' \
-    "$1" \
+        "$@" \
     | sort \
     | uniq -c
