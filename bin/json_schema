@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-
 # Copyright 2014-2019 Noah Sussman New Media, LLC
+# Copyright 2019-2020 Noah Sussman New Media, LLC and Daniel Beecham
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@
 # will treat references to unset variables as an error and exit
 # immediately.
 set -eu
-
 
 if test ! "$(command -v jq)"; then
     echo "ERROR: jq is not in your path!"
